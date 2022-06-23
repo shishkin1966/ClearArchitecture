@@ -12,13 +12,25 @@ namespace ClearArchitecture.SL
             _lifecycle = new LifecycleObserver(this);
         }
 
-        public abstract void OnCreate();
+        public void OnCreate()
+        {
+            //
+        }
 
-        public abstract void OnStart();
+        public void OnStart()
+        {
+            //
+        }
 
-        public abstract void OnReady();
+        public void OnReady()
+        {
+            //
+        }
 
-        public abstract void OnDestroy();
+        public void OnDestroy()
+        {
+            //
+        }
 
         public abstract void Read(IMessage message);
 

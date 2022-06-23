@@ -1,6 +1,6 @@
 ﻿namespace ClearArchitecture.SL
 {
-    public interface IModelView<M,V> : IValidated, ILifecycleObservable where M : IModel<V>
+    public interface IModelView<V> : IValidated, ILifecycleObservable
     {
         /**
         * Закрыть ModelView объект
@@ -12,13 +12,13 @@
         *
         * @return модель
         */
-        M GetModel();
+        IModel<V> GetModel();
 
         /**
         * Установить модель
         *
         * @param model модель
         */
-        M SetModel(M model);
+        void SetModel(IModel<V> model);
     }
 }
