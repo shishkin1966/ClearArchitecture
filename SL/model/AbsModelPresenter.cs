@@ -2,11 +2,21 @@
 {
     public abstract class AbsModelPresenter<V> : AbsPresenter, IModelPresenter<V>
     {
-        protected AbsModelPresenter(string name) : base(name)
+        private readonly IModel<V> _model;
+
+        protected AbsModelPresenter(string name, IModel<V> model) : base(name)
         {
+            _model = model;
         }
 
-        public abstract IModel<V> GetModel();
-        public abstract V GetView();
+        public IModel<V> GetModel()
+        {
+            return _model;
+        }
+
+        public V GetView()
+        {
+            return _model.GetView();
+        }
     }
 }
