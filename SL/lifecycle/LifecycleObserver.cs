@@ -5,16 +5,15 @@ namespace ClearArchitecture.SL
     public class LifecycleObserver : ILifecycle
     {
         private int _state = Lifecycle.ON_CREATE;
-        private readonly WeakReference _listener;
+        private readonly ILifecycleListener _listener;
 
         public LifecycleObserver(ILifecycleListener listener)
         {
             if (listener != null)
             {
-                _listener = new WeakReference(listener, false);
+                _listener = listener;
             }
             SetState(Lifecycle.ON_CREATE);
-
         }
 
         /**
@@ -39,32 +38,16 @@ namespace ClearArchitecture.SL
             switch(state) 
             {
                 case Lifecycle.ON_CREATE:
-                    if (_listener.IsAlive)
-                    {
-                        ILifecycleListener l = _listener.Target as ILifecycleListener;
-                        l.OnCreate();
-                    }
+                    _listener.OnCreate();
                     break;
                 case Lifecycle.ON_START:
-                    if (_listener.IsAlive)
-                    {
-                        ILifecycleListener l = _listener.Target as ILifecycleListener;
-                        l.OnStart();
-                    }
+                    _listener.OnStart();
                     break;
                 case Lifecycle.ON_READY:
-                    if (_listener.IsAlive)
-                    {
-                        ILifecycleListener l = _listener.Target as ILifecycleListener;
-                        l.OnReady();
-                    }
+                    _listener.OnReady();
                     break;
                 case Lifecycle.ON_DESTROY:
-                    if (_listener.IsAlive)
-                    {
-                        ILifecycleListener l = _listener.Target as ILifecycleListener;
-                        l.OnDestroy();
-                    }
+                    _listener.OnDestroy();
                     break;
             }
         }

@@ -3,10 +3,12 @@
     public abstract class AbsModel<V> : IModel<V>
     {
         private readonly IModelView<V> _modelView;
+        private readonly LifecycleObserver _observer;
 
         protected AbsModel(IModelView<V> modelView)
         {
             _modelView = modelView;
+            _observer = new LifecycleObserver(this);
         }
 
         public V GetView()
@@ -46,21 +48,7 @@
 
         public void SetState(int state)
         {
-            switch (state)
-            {
-                case Lifecycle.ON_CREATE:
-                    OnCreate();
-                    break;
-                case Lifecycle.ON_START:
-                    OnStart();
-                    break;
-                case Lifecycle.ON_READY:
-                    OnReady();
-                    break;
-                case Lifecycle.ON_DESTROY:
-                    OnDestroy();
-                    break;
-            }
+            _observer.SetState(state);
         }
     }
 }

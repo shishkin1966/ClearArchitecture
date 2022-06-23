@@ -4,7 +4,7 @@ namespace ClearArchitecture.SL
 {
     public abstract class AbsUnion : AbsSmallUnion, IUnion
     {
-        private WeakReference _currentSubscriber;
+        private IProviderSubscriber _currentSubscriber;
 
         protected AbsUnion(string name) : base(name)
         {
@@ -19,12 +19,12 @@ namespace ClearArchitecture.SL
             }
 
             if (base.RegisterSubscriber(subscriber)) {
-                if (_currentSubscriber != null && _currentSubscriber.IsAlive)
+                if (_currentSubscriber != null)
                 {
-                    IProviderSubscriber oldSubscriber = (IProviderSubscriber)_currentSubscriber.Target;
+                    IProviderSubscriber oldSubscriber = _currentSubscriber;
                     if (subscriber.GetName() == (oldSubscriber.GetName()))
                     {
-                        _currentSubscriber = new WeakReference(subscriber, false);
+                        _currentSubscriber = subscriber;
                     }
                 }
                 return true;
@@ -38,12 +38,12 @@ namespace ClearArchitecture.SL
 
             base.UnRegisterSubscriber(subscriber);
 
-            if (_currentSubscriber != null && _currentSubscriber.IsAlive)
+            if (_currentSubscriber != null)
             {
-                IProviderSubscriber oldSubscriber = (IProviderSubscriber)_currentSubscriber.Target;
+                IProviderSubscriber oldSubscriber = _currentSubscriber;
                 if (subscriber.GetName() == (oldSubscriber.GetName()))
                 {
-                    _currentSubscriber.Target = null;
+                    _currentSubscriber = null;
                 }
             }
         }
@@ -62,18 +62,14 @@ namespace ClearArchitecture.SL
                 return false;
             }
 
-            _currentSubscriber = new WeakReference(subscriber, false);
+            _currentSubscriber = subscriber;
 
             return true;
         }
 
         public IProviderSubscriber GetCurrentSubscriber() 
         {
-            if (_currentSubscriber != null && _currentSubscriber.IsAlive)
-            {
-                return (IProviderSubscriber)_currentSubscriber.Target;
-            }
-            return default;
+            return _currentSubscriber;
         }
 
     }
