@@ -12,7 +12,15 @@ namespace ClearArchitecture.SL
             _lifecycle = new LifecycleObserver(this);
         }
 
+        public abstract void OnCreate();
+
         public abstract void OnStart();
+
+        public abstract void OnReady();
+
+        public abstract void OnDestroy();
+
+        public abstract void Read(IMessage message);
 
         public override List<string> GetProviderSubscription()
         {
@@ -38,18 +46,18 @@ namespace ClearArchitecture.SL
         }
         new public bool IsValid()
         {
-            return _lifecycle.GetState() != Lifecycle.VIEW_DESTROY;
+            return _lifecycle.GetState() != Lifecycle.ON_DESTROY;
         }
 
         public void AddAction(IAction action)
         {
             switch (GetState()) 
             {
-                case Lifecycle.VIEW_DESTROY:
+                case Lifecycle.ON_DESTROY:
                     return;
 
-                case Lifecycle.VIEW_NOT_READY:
-                case Lifecycle.VIEW_CREATE:  
+                case Lifecycle.ON_START:
+                case Lifecycle.ON_CREATE:  
                     if (!action.IsRun())
                     {
                             _actions.Add(action);
@@ -71,7 +79,7 @@ namespace ClearArchitecture.SL
             var deleted = new List<IAction>();
             for (int i=0;i < _actions.Count;i++)
             {
-                if (GetState() != Lifecycle.VIEW_READY)
+                if (GetState() != Lifecycle.ON_READY)
                 {
                     break;
                 }
@@ -87,14 +95,6 @@ namespace ClearArchitecture.SL
                 _actions.Remove(action);
             }
         }
-
-        public abstract void OnCreateView();
-
-        public abstract void OnDestroyView();
-
-        public abstract void OnReadyView();
-
-        public abstract void Read(IMessage message);
 
         public void SetState(int state)
         {

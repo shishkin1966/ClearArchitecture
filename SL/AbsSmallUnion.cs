@@ -35,7 +35,7 @@ namespace ClearArchitecture.SL
                 if (subscriber.IsValid() && subscriber is ILifecycle)
                 {
                     int state = (subscriber as ILifecycle).GetState();
-                    if (state == Lifecycle.VIEW_READY)
+                    if (state == Lifecycle.ON_READY)
                     {
                         subscribers.Add(subscriber);
                     }

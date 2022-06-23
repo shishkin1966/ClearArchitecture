@@ -12,7 +12,7 @@ namespace ClearArchitecture.SL
 
         public int GetState()
         {
-            return Lifecycle.VIEW_READY;
+            return Lifecycle.ON_READY;
         }
 
         public abstract void OnChangeObservable(string observable, object obj);

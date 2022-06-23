@@ -1,24 +1,28 @@
 ﻿namespace ClearArchitecture.SL
 {
     /**
-    * Интерфейс слушателя View объекта, имеющего жизненный цикл
+    * Интерфейс слушателя объекта, имеющего жизненный цикл
     */
     public interface ILifecycleListener : ILifecycle
     {
         /**
-        * Событие - view на этапе создания
+        * Событие - объект на этапе создания
         */
-        void OnCreateView();
+        void OnCreate();
 
         /**
-        * Событие - view готово к использованию
+        * Событие - объект на этапе открытия
         */
-        void OnReadyView();
+        void OnStart();
+        /**
+        * Событие - объект готов к использованию
+        */
+        void OnReady();
 
         /**
-        * Событие - уничтожение view
+        * Событие - уничтожение объекта
         */
-        void OnDestroyView();
+        void OnDestroy();
 
     }
 }

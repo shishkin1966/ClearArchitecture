@@ -6,7 +6,7 @@ namespace ClearArchitecture.SL
     public class LifecycleObservable : ILifecycleObservable
     {
         private ConcurrentBag<ILifecycle> _list = new ConcurrentBag<ILifecycle>();
-        private int _state = Lifecycle.VIEW_CREATE;
+        private int _state = Lifecycle.ON_CREATE;
 
         public LifecycleObservable(int state)
         {
@@ -57,7 +57,7 @@ namespace ClearArchitecture.SL
             {
                 stateable.SetState(_state);
             }
-            if (state == Lifecycle.VIEW_DESTROY)
+            if (state == Lifecycle.ON_DESTROY)
             {
                 ClearLifecycleObservers();
             }

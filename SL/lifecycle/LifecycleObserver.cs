@@ -4,7 +4,7 @@ namespace ClearArchitecture.SL
 {
     public class LifecycleObserver : ILifecycle
     {
-        private int _state = Lifecycle.VIEW_CREATE;
+        private int _state = Lifecycle.ON_CREATE;
         private readonly WeakReference _listener;
 
         public LifecycleObserver(ILifecycleListener listener)
@@ -13,7 +13,7 @@ namespace ClearArchitecture.SL
             {
                 _listener = new WeakReference(listener, false);
             }
-            SetState(Lifecycle.VIEW_CREATE);
+            SetState(Lifecycle.ON_CREATE);
 
         }
 
@@ -38,25 +38,32 @@ namespace ClearArchitecture.SL
 
             switch(state) 
             {
-                case Lifecycle.VIEW_CREATE:
+                case Lifecycle.ON_CREATE:
                     if (_listener.IsAlive)
                     {
                         ILifecycleListener l = _listener.Target as ILifecycleListener;
-                        l.OnCreateView();
+                        l.OnCreate();
                     }
                     break;
-                case Lifecycle.VIEW_READY:
+                case Lifecycle.ON_START:
                     if (_listener.IsAlive)
                     {
                         ILifecycleListener l = _listener.Target as ILifecycleListener;
-                        l.OnReadyView();
+                        l.OnStart();
                     }
                     break;
-                case Lifecycle.VIEW_DESTROY:
+                case Lifecycle.ON_READY:
                     if (_listener.IsAlive)
                     {
                         ILifecycleListener l = _listener.Target as ILifecycleListener;
-                        l.OnDestroyView();
+                        l.OnReady();
+                    }
+                    break;
+                case Lifecycle.ON_DESTROY:
+                    if (_listener.IsAlive)
+                    {
+                        ILifecycleListener l = _listener.Target as ILifecycleListener;
+                        l.OnDestroy();
                     }
                     break;
             }

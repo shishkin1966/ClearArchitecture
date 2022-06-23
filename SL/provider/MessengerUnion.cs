@@ -73,7 +73,7 @@ namespace ClearArchitecture.SL
             if (subscriber != null && address == subscriber.GetName()) 
             {
                 int state = subscriber.GetState();
-                if (state == Lifecycle.VIEW_READY || state == Lifecycle.VIEW_NOT_READY) {
+                if (state == Lifecycle.ON_READY || state == Lifecycle.ON_START) {
                     return subscriber;
                 }
             }
@@ -223,7 +223,7 @@ namespace ClearArchitecture.SL
             foreach (IMessage message in list)
             {
                 int state = subscriber.GetState();
-                if (state == Lifecycle.VIEW_READY)
+                if (state == Lifecycle.ON_READY)
                 {
                     message.Read(subscriber);
                     RemoveMessage(message);
