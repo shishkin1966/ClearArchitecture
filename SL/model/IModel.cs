@@ -1,13 +1,13 @@
 ﻿namespace ClearArchitecture.SL
 {
-    public interface IModel : IValidated
+    public interface IModel<out V> : IValidated
     {
         /**
         * Получить View объект модели
         *
         * @return View объект модели
         */
-        T GetView<T>();
+        V GetView();
 
        /**
         * Добавить слушателя к модели
