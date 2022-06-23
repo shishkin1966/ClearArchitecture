@@ -1,6 +1,6 @@
 ﻿namespace ClearArchitecture.SL
 {
-    public interface IModel<out V> : IValidated, ILifecycleListener
+    public interface IModel<out V> : IModelSubscriber
     {
         /**
         * Получить View объект модели
