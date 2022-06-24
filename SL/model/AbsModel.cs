@@ -14,7 +14,7 @@ namespace ClearArchitecture.SL
             _observer = new LifecycleObserver(this);
         }
 
-        public V GetView()
+        public virtual V GetView()
         {
             return (V)_modelView;
         }
