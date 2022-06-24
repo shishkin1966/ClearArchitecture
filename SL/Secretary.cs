@@ -60,9 +60,16 @@ namespace ClearArchitecture.SL
 
             if (ContainsKey(key))
             {
-                _subscribers.TryGetValue(key, out value);
+                if (_subscribers.TryGetValue(key, out value))
+                {
+                    return value;
+                }
+                else
+                {
+                    return default;
+                }
             }
-            return value;
+            return default;
         }
 
         public List<T> Values()
