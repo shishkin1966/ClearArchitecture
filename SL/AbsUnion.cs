@@ -11,7 +11,7 @@ namespace ClearArchitecture.SL
 
         }
 
-        public new bool RegisterSubscriber(IProviderSubscriber subscriber)
+        public override bool RegisterSubscriber(IProviderSubscriber subscriber)
         {
             if (subscriber == null)
             {
@@ -32,7 +32,7 @@ namespace ClearArchitecture.SL
             return false;
         }
 
-        public new void UnRegisterSubscriber(IProviderSubscriber subscriber)
+        public override void UnRegisterSubscriber(IProviderSubscriber subscriber)
         {
             if (subscriber == null) return;
 

@@ -16,21 +16,9 @@ namespace ClearArchitecture.SL
         List<string> GetProviderSubscription();
 
         /*
-        * Событие - провайдер прекратил работу
-        */
-        void OnStopProvider(string provider);
-
-        /*
         * Остановить работу объекта
         */
         void Stop();
-
-        /*
-        * Получить список имен провайдеров подписчика
-        *
-        * @return список имен провайдера подписчика
-        */
-        List<string> GetProviders();
 
         /*
         * Установить провайдера подписчика
@@ -50,7 +38,8 @@ namespace ClearArchitecture.SL
         void OnSetProvider(string provider);
 
         /*
-        * Событие - провайдера подписчика очищен
+        * Событие - подписчик отключен от провайдера
+        * @param sring провайдер
         */
         void OnRemoveProvider(string provider);
     }

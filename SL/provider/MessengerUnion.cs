@@ -245,7 +245,7 @@ namespace ClearArchitecture.SL
             _messagingList.Remove(name);
         }
 
-        new public void Stop()
+        public override void Stop()
         {
             _messages.Clear();
             _messagingList.Clear();

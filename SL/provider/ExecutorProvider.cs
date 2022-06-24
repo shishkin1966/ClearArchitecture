@@ -15,7 +15,7 @@ namespace ClearArchitecture.SL
         {
         }
 
-        new public void OnRegister()
+        public override void OnRegister()
         {
             ThreadPool.SetMaxThreads(8, 4);
 
@@ -127,7 +127,7 @@ namespace ClearArchitecture.SL
             ThreadPool.QueueUserWorkItem(request.Execute, request);
         }
 
-        new public void Stop()
+        public override void Stop()
         {
             CancelAll();
 

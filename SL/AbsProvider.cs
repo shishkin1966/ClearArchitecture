@@ -11,25 +11,25 @@ namespace ClearArchitecture.SL
 
         public abstract int CompareTo(IProvider other);
 
-        public bool IsPersistent()
+        public virtual bool IsPersistent()
         {
             return false;
         }
 
-        public void OnRegister()
+        public virtual void OnRegister()
         {
-            //Console.WriteLine("OnRegister provider " + GetName());
+            Console.WriteLine(DateTime.Now.ToString("G") + ": OnRegister provider " + GetName());
         }
 
-        public void OnUnRegister()
+        public virtual void OnUnRegister()
         {
-            //Console.WriteLine("OnUnRegister provider " + GetName());
+            Console.WriteLine(DateTime.Now.ToString("G") + ": OnUnRegister provider " + GetName());
         }
 
-        public void Stop()
+        public virtual void Stop()
         {
             OnUnRegister();
-            Console.WriteLine("Stop provider " + GetName());
+            Console.WriteLine(DateTime.Now.ToString("G") + ": Stop provider " + GetName());
         }
     }
 }

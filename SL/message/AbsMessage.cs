@@ -86,7 +86,7 @@ namespace ClearArchitecture.SL
             return _id;
         }
 
-        public string GetSubj()
+        public virtual string GetSubj()
         {
             return _subj;
         }

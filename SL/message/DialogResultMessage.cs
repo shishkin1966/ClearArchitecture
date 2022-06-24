@@ -16,7 +16,7 @@
             _action = action;
         }
 
-        public new string GetSubj()
+        public override string GetSubj()
         {
             return SUBJ;
         }

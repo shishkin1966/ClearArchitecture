@@ -10,19 +10,19 @@ namespace ClearArchitecture.SL
 
         public abstract List<string> GetObservable();
 
-        public int GetState()
+        public virtual int GetState()
         {
             return Lifecycle.ON_READY;
         }
 
         public abstract void OnChangeObservable(string observable, object obj);
 
-        public void OnStopObservable(string observable)
+        public virtual void OnStopObservable(string observable)
         {
             //
         }
 
-        public void SetState(int state)
+        public virtual void SetState(int state)
         {
             //
         }

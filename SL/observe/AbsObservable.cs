@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ClearArchitecture.SL
 {
@@ -34,12 +35,11 @@ namespace ClearArchitecture.SL
 
         public void OnChangeObservable(object obj)
         {
-            foreach (IObservableSubscriber subscriber in _secretary.Values())
+            foreach (var subscriber in from IObservableSubscriber subscriber in _secretary.Values()
+                                       where subscriber.IsValid()
+                                       select subscriber)
             {
-                if (subscriber.IsValid())
-                {
-                    subscriber.OnChangeObservable(GetName(), obj);
-                }
+                subscriber.OnChangeObservable(GetName(), obj);
             }
         }
 
@@ -59,17 +59,17 @@ namespace ClearArchitecture.SL
             }
         }
 
-        public void OnRegisterFirstObserver()
+        public virtual void OnRegisterFirstObserver()
         {
             //
         }
 
-        public void OnUnRegisterLastObserver()
+        public virtual void OnUnRegisterLastObserver()
         {
             //
         }
 
-        public void Stop()
+        public virtual void Stop()
         {
             foreach (IObservableSubscriber subscriber in _secretary.Values())
             {

@@ -65,7 +65,7 @@ namespace ClearArchitecture.SL
             return false;
         }
 
-        new public void UnRegisterSubscriber(IProviderSubscriber subscriber)
+        public override void UnRegisterSubscriber(IProviderSubscriber subscriber)
         {
             if (subscriber == null) return;
 
@@ -84,7 +84,7 @@ namespace ClearArchitecture.SL
             }
         }
 
-        new public bool RegisterSubscriber(IProviderSubscriber subscriber)
+        public override bool RegisterSubscriber(IProviderSubscriber subscriber)
         {
             if (subscriber == null) return true;
 
@@ -105,7 +105,7 @@ namespace ClearArchitecture.SL
             return true;
         }
 
-        new public void OnUnRegister()
+        public override void OnUnRegister()
         {
             foreach (IObservable observable in GetObservables())
             {
@@ -114,9 +114,12 @@ namespace ClearArchitecture.SL
             base.OnUnRegister();
         }
 
-        new public void Stop()
+        public override void Stop()
         {
-            OnUnRegister();
+            foreach (IObservable observable in GetObservables())
+            {
+                observable.Stop();
+            }
             base.Stop();
         }
     }

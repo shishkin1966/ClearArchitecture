@@ -36,7 +36,7 @@ namespace ClearArchitecture.SL
         public abstract string GetName();
         public abstract void SendResult();
 
-        public int GetAction(IRequest oldRequest)
+        public virtual int GetAction(IRequest oldRequest)
         {
             return ExecutorProvider.ACTION_DELETE;
         }
@@ -50,6 +50,7 @@ namespace ClearArchitecture.SL
         {
             return _sender;
         }
+
         public bool IsCancelled()
         {
             return _isCancelled;

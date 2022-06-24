@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ClearArchitecture.SL
 {
@@ -19,7 +20,7 @@ namespace ClearArchitecture.SL
             return (V)_modelView;
         }
 
-        new public bool IsValid()
+        public override bool IsValid()
         {
             return _modelView.IsValid();
         }
@@ -115,5 +116,6 @@ namespace ClearArchitecture.SL
         }
 
         public abstract void Read(IMessage message);
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,7 +18,7 @@ namespace ClearArchitecture.SL
         {
         }
 
-        public bool ContainsSubscriber(IProviderSubscriber subscriber)
+        public virtual bool ContainsSubscriber(IProviderSubscriber subscriber)
         {
             if (subscriber == null)
             {
@@ -27,7 +28,7 @@ namespace ClearArchitecture.SL
             return _secretary.ContainsKey(subscriber.GetName());
         }
 
-        public List<IProviderSubscriber> GetReadySubscribers()
+        public virtual List<IProviderSubscriber> GetReadySubscribers()
         {
             List<IProviderSubscriber> subscribers = new List<IProviderSubscriber>();
             foreach (IProviderSubscriber subscriber in GetSubscribers())
@@ -44,7 +45,7 @@ namespace ClearArchitecture.SL
             return subscribers;
         }
         
-        public IProviderSubscriber GetSubscriber(string name)
+        public virtual IProviderSubscriber GetSubscriber(string name)
         {
             if (!_secretary.ContainsKey(name))
             {
@@ -56,12 +57,12 @@ namespace ClearArchitecture.SL
             }
         }
 
-        public List<IProviderSubscriber> GetSubscribers()
+        public virtual List<IProviderSubscriber> GetSubscribers()
         {
             return _secretary.Values();
         }
 
-        public IProviderSubscriber GetValidSubscriber()
+        public virtual IProviderSubscriber GetValidSubscriber()
         {
             foreach (IProviderSubscriber subscriber in GetSubscribers())
             {
@@ -74,7 +75,7 @@ namespace ClearArchitecture.SL
             return default;
         }
 
-        public List<IProviderSubscriber> GetValidSubscribers()
+        public virtual List<IProviderSubscriber> GetValidSubscribers()
         {
             List<IProviderSubscriber> subscribers = new List<IProviderSubscriber>();
             subscribers.AddRange(from IProviderSubscriber subscriber in GetSubscribers()
@@ -83,7 +84,7 @@ namespace ClearArchitecture.SL
             return subscribers;
         }
 
-        public bool HasSubscriber(string name)
+        public virtual bool HasSubscriber(string name)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -93,27 +94,27 @@ namespace ClearArchitecture.SL
             return _secretary.ContainsKey(name);
         }
 
-        public bool HasSubscribers()
+        public virtual bool HasSubscribers()
         {
             return !_secretary.IsEmpty();
 
         }
 
-        public void OnAddSubscriber(IProviderSubscriber subscriber)
+        public virtual void OnAddSubscriber(IProviderSubscriber subscriber)
         {
             // Method intentionally left empty.
         }
 
-        public void OnRegisterFirstSubscriber()
+        public virtual void OnRegisterFirstSubscriber()
         {
             // Method intentionally left empty.
         }
-        public void OnUnRegisterLastSubscriber()
+        public virtual void OnUnRegisterLastSubscriber()
         {
             // Method intentionally left empty.
         }
 
-        public bool RegisterSubscriber(IProviderSubscriber subscriber) 
+        public virtual bool RegisterSubscriber(IProviderSubscriber subscriber) 
         {
             if (subscriber == null)
             {
@@ -140,7 +141,7 @@ namespace ClearArchitecture.SL
             return true;
         }
 
-        public void UnRegisterSubscriber(IProviderSubscriber subscriber)
+        public virtual void UnRegisterSubscriber(IProviderSubscriber subscriber)
         {
             if (subscriber == null)
             {
@@ -148,7 +149,8 @@ namespace ClearArchitecture.SL
             }
 
             int cnt = _secretary.Size();
-            if (_secretary.ContainsKey(subscriber.GetName()) && (subscriber.GetType() == _secretary.GetValue(subscriber.GetName()).GetType()))
+            // if (_secretary.ContainsKey(subscriber.GetName()) && (subscriber.GetType() == _secretary.GetValue(subscriber.GetName()).GetType()))
+            if (_secretary.ContainsKey(subscriber.GetName()))
             {
                 _secretary.Remove(subscriber.GetName());
                 subscriber.RemoveProvider(this.GetName());
@@ -160,7 +162,7 @@ namespace ClearArchitecture.SL
             }
         }
 
-        public void UnRegisterSubscriber(string name)
+        public virtual void UnRegisterSubscriber(string name)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -174,21 +176,14 @@ namespace ClearArchitecture.SL
             }
         }
 
-         new public void Stop()
-         {
-            OnUnRegister();
-
-            base.Stop();
-         }
-
-        new public void OnUnRegister()
+        public override void OnUnRegister()
         {
             UnRegisterSubscribers();
 
             base.OnUnRegister();
         }
 
-        public IProviderSubscriber GetUnBusySubscriber()
+        public virtual IProviderSubscriber GetUnBusySubscriber()
         {
             foreach (IProviderSubscriber subscriber in GetSubscribers())
             {
@@ -201,7 +196,7 @@ namespace ClearArchitecture.SL
             return default;
         }
 
-        public List<IProviderSubscriber> GetUnBusySubscribers()
+        public virtual List<IProviderSubscriber> GetUnBusySubscribers()
         {
             List<IProviderSubscriber> list = new List<IProviderSubscriber>();
             list.AddRange(from IProviderSubscriber subscriber in GetSubscribers()
@@ -210,12 +205,11 @@ namespace ClearArchitecture.SL
             return list;
         }
 
-        public void UnRegisterSubscribers()
+        public virtual void UnRegisterSubscribers()
         {
             foreach (IProviderSubscriber subscriber in GetSubscribers())
             {
                 UnRegisterSubscriber(subscriber);
-                subscriber.OnStopProvider(GetName());
             }
             _secretary.Clear();
         }

@@ -18,42 +18,42 @@ namespace ClearArchitecture.SL
             _name = name;
         }
 
-        public string GetName()
+        public virtual string GetName()
         {
             return _name;
         }
 
-        public void SetName(string name)
+        public virtual void SetName(string name)
         {
             _name = name;
         }
 
-        public bool IsValid()
+        public virtual bool IsValid()
         {
             return true;
         }
 
-        public bool IsBusy()
+        public virtual bool IsBusy()
         {
             return _isBusy;
         }
 
-        public void SetBusy()
+        public virtual void SetBusy()
         {
             _isBusy = true;
         }
 
-        public void SetUnBusy()
+        public virtual void SetUnBusy()
         {
             _isBusy = false;
         }
 
-        public void AddComment(string comment)
+        public virtual void AddComment(string comment)
         {
             _comment.Append(DateTime.Now.ToString("G") + ": " + comment);
         }
 
-        public string GetComment()
+        public virtual string GetComment()
         {
             return _comment.ToString();
         }

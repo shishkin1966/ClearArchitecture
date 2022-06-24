@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ClearArchitecture.SL
 {
@@ -12,7 +11,7 @@ namespace ClearArchitecture.SL
 
         public abstract void Start();
 
-        public string GetName()
+        public virtual string GetName()
         {
             return _name;
         }
@@ -22,7 +21,7 @@ namespace ClearArchitecture.SL
             _name = name;
         }
 
-        public void Stop()
+        public virtual void Stop()
         {
             foreach (IProvider provider in GetProviders())
             {
@@ -33,14 +32,14 @@ namespace ClearArchitecture.SL
             }
         }
 
-        public bool ExistsProvider(string name)
+        public virtual bool ExistsProvider(string name)
         {
             if (string.IsNullOrEmpty(name)) return false;
 
             return _secretary.ContainsKey(name);
         }
 
-        public IProvider GetProvider(string name)
+        public virtual IProvider GetProvider(string name)
         {
             if (string.IsNullOrEmpty(name)) return default;
 
@@ -57,7 +56,7 @@ namespace ClearArchitecture.SL
             return default;
         }
 
-        public bool RegisterProvider(IProvider provider)
+        public virtual bool RegisterProvider(IProvider provider)
         {
             if (provider == null) return false;
 
@@ -72,12 +71,11 @@ namespace ClearArchitecture.SL
             }
 
             _secretary.Put(provider.GetName(), provider);
-            Console.WriteLine("SL:RegisterProvider " + provider.GetName());
             provider.OnRegister();
             return true;
         }
 
-        public bool RegisterProvider(string name)
+        public virtual bool RegisterProvider(string name)
         {
             IProvider provider = GetProviderFactory().Create(name);
             if (provider == null)
@@ -90,7 +88,7 @@ namespace ClearArchitecture.SL
             }
         }
 
-        public void UnRegisterProvider(string name)
+        public virtual void UnRegisterProvider(string name)
         {
             if (string.IsNullOrEmpty(name)) return;
 
@@ -100,18 +98,17 @@ namespace ClearArchitecture.SL
                 if (provider != null && !provider.IsPersistent())
                 {
                     provider.Stop();
-                    Console.WriteLine("SL:UnRegisterProvider " + provider.GetName());
                     _secretary.Remove(name);
                 }
             }
         }
 
-        public List<IProvider> GetProviders()
+        public virtual List<IProvider> GetProviders()
         {
             return _secretary.Values();
         }
 
-        public bool RegisterSubscriber(IProviderSubscriber subscriber)
+        public virtual bool RegisterSubscriber(IProviderSubscriber subscriber)
         {
             if (subscriber == null) return true;
 
@@ -142,7 +139,7 @@ namespace ClearArchitecture.SL
             return true;
         }
 
-        public void UnRegisterSubscriber(IProviderSubscriber subscriber)
+        public virtual void UnRegisterSubscriber(IProviderSubscriber subscriber)
         {
             if (subscriber == null) return;
 
@@ -170,7 +167,7 @@ namespace ClearArchitecture.SL
             }
         }
 
-        public bool SetCurrentSubscriber(IProviderSubscriber subscriber)
+        public virtual bool SetCurrentSubscriber(IProviderSubscriber subscriber)
         {
             if (subscriber == null) return true;
 

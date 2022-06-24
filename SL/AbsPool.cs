@@ -33,7 +33,7 @@ namespace ClearArchitecture.SL
 
         public abstract T ObjectFactory();
 
-        public List<T> Get(int count)
+        public virtual List<T> Get(int count)
         {
             List<T> list = new List<T>();
             if (count < 1) return list;
@@ -60,7 +60,7 @@ namespace ClearArchitecture.SL
             return list;
         }
 
-        public void Release(T item)
+        public virtual void Release(T item)
         {
             if (_items.Count < _capacity)
             {
@@ -68,7 +68,7 @@ namespace ClearArchitecture.SL
             }
         }
 
-        public void Release(List<T> items)
+        public virtual void Release(List<T> items)
         {
             int i = 0;
             while  (_items.Count < _capacity) { 
@@ -84,7 +84,7 @@ namespace ClearArchitecture.SL
             }
         }
 
-        new public void Stop()
+        public override void Stop()
         {
             var bag = new ConcurrentBag<T>();
             Interlocked.Exchange<ConcurrentBag<T>>(ref _items, bag);
