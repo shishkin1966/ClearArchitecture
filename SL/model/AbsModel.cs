@@ -60,6 +60,7 @@ namespace ClearArchitecture.SL
             List<string> list = new List<string>();
             list.Add(ModelUnion.NAME);
             list.Add(MessengerUnion.NAME);
+            list.Add(ExecutorUnion.NAME);
             return list;
         }
 

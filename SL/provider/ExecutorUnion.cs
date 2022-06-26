@@ -1,17 +1,18 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 
 namespace ClearArchitecture.SL
 {
-    public class ExecutorProvider : AbsProvider, IExecutorProvider
+    public class ExecutorUnion : AbsSmallUnion, IExecutorUnion
     {
-        public const string NAME = "ExecutorProvider";
+        public const string NAME = "ExecutorUnion";
         public const int ACTION_NOTHING = -1;
         public const int ACTION_DELETE = 0;
         public const int ACTION_IGNORE = 1;
 
         private readonly Secretary<IRequest> _requests = new Secretary<IRequest>();
 
-        public ExecutorProvider(string name) : base(name)
+        public ExecutorUnion(string name) : base(name)
         {
         }
 
@@ -56,6 +57,8 @@ namespace ClearArchitecture.SL
                 if (request.GetSender() == sender && request.GetName() == requestName)
                 {
                     request.SetCanceled();
+                    Console.WriteLine(DateTime.Now.ToString("G") + ": Cancel request " + request.GetName());
+
                     _requests.Remove(request.GetName());
                 }
             }
@@ -63,7 +66,7 @@ namespace ClearArchitecture.SL
 
         public override int CompareTo(IProvider other)
         {
-            if (other is IExecutorProvider)
+            if (other is IExecutorUnion)
             { return 0; }
             else
             { return 1; }
@@ -133,5 +136,15 @@ namespace ClearArchitecture.SL
 
             base.Stop();
         }
+
+        public override void UnRegisterSubscriber(IProviderSubscriber subscriber)
+        {
+            if (subscriber == null) return;
+
+            CancelRequests(subscriber.GetName());
+
+            base.UnRegisterSubscriber(subscriber);
+        }
+
     }
 }

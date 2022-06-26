@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ClearArchitecture.SL
 {
@@ -44,7 +45,7 @@ namespace ClearArchitecture.SL
         * @param Executor запроса
         * @return запрос
         */
-        IRequest SetExecutor(IExecutorProvider executor);
+        IRequest SetExecutor(IExecutorUnion executor);
 
         /**
         * Установить флаг - запрос прерван
@@ -112,6 +113,14 @@ namespace ClearArchitecture.SL
         * @param список получателей запроса
         */
         IRequest AddReceiver(List<string> receiver);
+
+        /**
+        * Установить время старта запроса
+        *
+        * @param id запроса
+        * @return запрос
+        */
+        IRequest SetStartTime(DateTime datetime);
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ClearArchitecture.SL
 {
@@ -9,8 +10,10 @@ namespace ClearArchitecture.SL
         private readonly List<string> _receiver = new List<string>();
         private int _id = -1;
         private bool _isCancelled = false;
-        private IExecutorProvider _executor = default;
+        private IExecutorUnion _executor = default;
         private ExtResult _result = default;
+
+        public DateTime StartTime { get; set; } = DateTime.Now;
 
         protected AbsRequest(string sender, string receiver, object data)
         {
@@ -38,7 +41,7 @@ namespace ClearArchitecture.SL
 
         public virtual int GetAction(IRequest oldRequest)
         {
-            return ExecutorProvider.ACTION_DELETE;
+            return ExecutorUnion.ACTION_DELETE;
         }
         
         public int GetId()
@@ -77,7 +80,7 @@ namespace ClearArchitecture.SL
             return this;
         }
 
-        public IRequest SetExecutor(IExecutorProvider executor)
+        public IRequest SetExecutor(IExecutorUnion executor)
         {
             _executor = executor;
             return this;
@@ -129,6 +132,12 @@ namespace ClearArchitecture.SL
                     _receiver.Add(rec);
                 }
             }
+            return this;
+        }
+
+        public IRequest SetStartTime(DateTime datetime)
+        {
+            StartTime = datetime;
             return this;
         }
     }
