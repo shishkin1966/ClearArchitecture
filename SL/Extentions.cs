@@ -23,9 +23,9 @@ namespace ClearArchitecture.SL
 
             char[] d = delimitor.ToCharArray();
             string[] words = str.Split(d, System.StringSplitOptions.RemoveEmptyEntries);
-            if (number < words.Length)
+            if (number <= words.Length)
             {
-                return words[number];
+                return words[number - 1];
             }
             return "";
         }
