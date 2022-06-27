@@ -13,12 +13,16 @@ namespace ClearArchitecture.SL
         private string _name;
         private int _id = 0;
 
+        public ExtResult()
+        {
+        }
+
         public ExtResult(object data)
         {
             _data = data;
         }
 
-        public object GetData() 
+        public virtual object GetData() 
         {
             return _data;
         }
@@ -87,7 +91,7 @@ namespace ClearArchitecture.SL
 
         public bool HasError()
         {
-            return !_error.HasError();
+            return _error.HasError();
         }
 
         public string GetName() 
