@@ -1,5 +1,7 @@
 ﻿
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace ClearArchitecture.SL
 {
@@ -40,6 +42,54 @@ namespace ClearArchitecture.SL
             string[] words = str.Split(d, System.StringSplitOptions.RemoveEmptyEntries);
             list.AddRange(words);
             return list;
+        }
+
+        public static int ToInt32(this string str)
+        {
+            if (string.IsNullOrEmpty(str)) return 0;
+
+            int value = 0;
+
+            try {
+                string s = str.Replace(",", ".");
+                if (s.IndexOf(".") == 0)
+                {
+                    return 0;
+                }
+                if (s.Substring(s.Length - 1) == ".")
+                {
+                    s = s.Substring(0, s.Length - 2);
+                }
+                if (s.IndexOf(".") > 0)
+                {
+                    s = s.Substring(0, s.IndexOf("."));
+                    Console.WriteLine(DateTime.Now.ToString("G") + ": " + s);
+                }
+                value = int.Parse(s, NumberStyles.AllowLeadingWhite, CultureInfo.InvariantCulture);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(DateTime.Now.ToString("G") + ": "+ str + " " + e.Message);
+            }
+            return value;
+        }
+
+        public static double ToDouble(this string str)
+        {
+            if (string.IsNullOrEmpty(str)) return 0;
+
+            double value = 0;
+
+            try
+            {
+                string s = str.Replace(",", ".");
+                value = double.Parse(s, NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingWhite, CultureInfo.InvariantCulture);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(DateTime.Now.ToString("G") + ": " + str + " " + e.Message);
+            }
+            return value;
         }
     }
 }
