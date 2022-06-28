@@ -1,6 +1,6 @@
 ﻿namespace ClearArchitecture.SL
 {
-    public interface IModelSubscriber : IMessengerSubscriber, ILifecycleListener, IActionListener, IActionHandler
+    public interface IModelSubscriber : IMessengerSubscriber,ILifecycleListener, IActionListener, IActionHandler, ITitle
     {
     }
 }

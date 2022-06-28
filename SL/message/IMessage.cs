@@ -2,7 +2,7 @@
 
 namespace ClearArchitecture.SL
 {
-    public interface IMessage : IAction
+    public interface IMessage : IAction, INamed 
     {
         /**
          * Получить id сообщения

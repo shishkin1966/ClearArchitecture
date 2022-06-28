@@ -39,5 +39,9 @@
             }
         }
 
+        public override string GetName()
+        {
+            return SUBJ;
+        }
     }
 }

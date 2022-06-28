@@ -1,4 +1,7 @@
-﻿namespace ClearArchitecture.SL
+﻿using System;
+using System.Collections.Generic;
+
+namespace ClearArchitecture.SL
 {
     public class ModelUnion : AbsSmallUnion, IModelUnion
     {
@@ -16,9 +19,40 @@
             { return 1; }
         }
 
+        public List<string> GetTitles()
+        {
+            List<string> list = new List<string>();
+            foreach(IProviderSubscriber subscriber in this.GetSubscribers())
+            {
+                var model = (IModelSubscriber)subscriber;
+                if (!string.IsNullOrEmpty(model.GetTitle()))
+                {
+                    list.Add(model.GetTitle());
+                }
+            }
+            return list;
+        }
+
         public IModelSubscriber GetModel(string name)
         {
             return base.GetSubscriber(name) as IModelSubscriber;
+        }
+
+        public IModelSubscriber GetModelByTile(string title)
+        {
+            if (string.IsNullOrEmpty(title)) return default;
+
+            foreach (IProviderSubscriber subscriber in this.GetSubscribers())
+            {
+                if (subscriber is IModelSubscriber m) 
+                {
+                    if (m.GetTitle() == title)
+                    {
+                        return m;
+                    }
+                }
+            }
+            return default;
         }
     }
 }

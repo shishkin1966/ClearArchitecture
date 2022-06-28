@@ -116,6 +116,6 @@ namespace ClearArchitecture.SL
         }
 
         public abstract void Read(IMessage message);
-
+        public abstract string GetTitle();
     }
 }

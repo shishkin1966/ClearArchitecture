@@ -4,6 +4,8 @@ namespace ClearArchitecture.SL
 {
     public class ResultMessage : AbsMessage
     {
+        public const string NAME = "ResultMessage";
+
         private readonly ExtResult _result;
 
         private ResultMessage(string address) : base(address)
@@ -46,6 +48,11 @@ namespace ClearArchitecture.SL
             {
                 listener.Response(_result);
             }
+        }
+
+        public override string GetName()
+        {
+            return NAME;
         }
     }
 }

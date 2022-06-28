@@ -2,6 +2,8 @@
 {
     public class DataMessage : AbsMessage
     {
+        public const string NAME = "DataMessage";
+
         private readonly object _data;
 
 
@@ -23,6 +25,11 @@
             }
 
             subscriber.Read(this);
+        }
+
+        public override string GetName()
+        {
+            return NAME;
         }
     }
 }

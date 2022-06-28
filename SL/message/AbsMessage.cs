@@ -42,7 +42,6 @@ namespace ClearArchitecture.SL
         }
 
         public abstract IMessage Copy();
-        public abstract void Read(IMessengerSubscriber subscriber);
 
         public bool ContainsAddress(string address)
         {
@@ -131,5 +130,16 @@ namespace ClearArchitecture.SL
             _subj = subj;
             return this;
         }
+
+        public virtual void Read(IMessengerSubscriber subscriber)
+        {
+            if (subscriber == null)
+            {
+                return;
+            }
+            subscriber.Read(this);
+        }
+
+        public abstract string GetName();
     }
 }
