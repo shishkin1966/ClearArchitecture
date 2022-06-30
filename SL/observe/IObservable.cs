@@ -19,16 +19,26 @@ namespace ClearArchitecture.SL
         void RemoveObserver(IObservableSubscriber subscriber);
 
         /**
-        * Зарегестрировать слушаемый объект. Вызывается при появлении
+        * Событие - зарегестрирован первый слушаемый объект. Вызывается при появлении
         * первого слушателя
         */
         void OnRegisterFirstObserver();
 
         /**
-        * Отменить регистрацию слушаемого объекта. Вызывается при удалении
+        * Событие - зарегестрирован слушаемый объект. 
+        */
+        void OnRegisterObserver(IObservableSubscriber subscriber);
+
+        /**
+        * Событие - отмена регистрации последнего слушаемого объекта. Вызывается при удалении
         * последнего слушателя
         */
         void OnUnRegisterLastObserver();
+
+        /**
+        * Событие - отменена регистрации слушаемого объекта. 
+        */
+        void OnUnRegisterObserver(IObservableSubscriber subscriber);
 
         /**
         * Событие - в слушаемом объекте произошли изменения

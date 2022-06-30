@@ -4,36 +4,42 @@ using System.Linq;
 
 namespace ClearArchitecture.SL
 {
-    public abstract class AbsObservable : AbsSubscriber, IObservable
+    public class BaseObservable : AbsSubscriber, IObservable
     {
         private readonly Secretary<IObservableSubscriber> _secretary = new Secretary<IObservableSubscriber>();
 
-        protected AbsObservable(string name) : base(name)
+        public BaseObservable(string name) : base(name)
         {
         }
 
-        public void AddObserver(IObservableSubscriber subscriber)
+        public virtual void AddObserver(IObservableSubscriber subscriber)
         {
+            if (subscriber == null) return;
+
             _secretary.Put(subscriber.GetName(), subscriber);
-    
+            Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Подключен observer " + subscriber.GetName() + " от observable " + GetName());
+
+            OnRegisterObserver(subscriber);
+
             if (_secretary.Size() == 1)
             {
                 OnRegisterFirstObserver();
             }
+
         }
 
-        public IObservableSubscriber GetObserver(string name)
+        public virtual IObservableSubscriber GetObserver(string name)
         {
             return _secretary.GetValue(name);
         }
 
-        public List<IObservableSubscriber> GetObservers()
+        public virtual List<IObservableSubscriber> GetObservers()
         {
             return _secretary.Values();
 
         }
 
-        public void OnChangeObservable(object obj)
+        public virtual void OnChangeObservable(object obj)
         {
             foreach (var subscriber in from IObservableSubscriber subscriber in _secretary.Values()
                                        where subscriber.IsValid()
@@ -43,13 +49,19 @@ namespace ClearArchitecture.SL
             }
         }
 
-        public void RemoveObserver(IObservableSubscriber subscriber)
+        public virtual void RemoveObserver(IObservableSubscriber subscriber)
         {
+            if (subscriber == null) return;
+
             if (_secretary.ContainsKey(subscriber.GetName()))
             {
                 if (subscriber == _secretary.GetValue(subscriber.GetName()))
                 {
                     _secretary.Remove(subscriber.GetName());
+
+                    OnUnRegisterObserver(subscriber);
+
+                    Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Отключен observer " + subscriber.GetName()+ " от observable " + GetName());
                 }
 
                 if (_secretary.IsEmpty())
@@ -76,8 +88,17 @@ namespace ClearArchitecture.SL
                 subscriber.OnStopObservable(GetName());
             }
             _secretary.Clear();
-            Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Stop "+GetName());
+            Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Stop observable " + GetName());
         }
 
+        public virtual void OnRegisterObserver(IObservableSubscriber subscriber)
+        {
+            //
+        }
+
+        public virtual void OnUnRegisterObserver(IObservableSubscriber subscriber)
+        {
+            //
+        }
     }
 }

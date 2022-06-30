@@ -25,7 +25,7 @@ namespace ClearArchitecture.SL
             foreach(IProviderSubscriber subscriber in this.GetSubscribers())
             {
                 var model = (IModelSubscriber)subscriber;
-                if (!string.IsNullOrEmpty(model.GetTitle()))
+                if (model.IsValid() && !string.IsNullOrEmpty(model.GetTitle()))
                 {
                     list.Add(model.GetTitle());
                 }

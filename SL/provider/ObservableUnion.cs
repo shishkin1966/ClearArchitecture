@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ClearArchitecture.SL
@@ -47,6 +48,8 @@ namespace ClearArchitecture.SL
             if (observable == null) return true;
 
             _secretary.Put(observable.GetName(), observable);
+            Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Зарегистрирован Observable "+ observable.GetName() );
+
             return true;
         }
 
