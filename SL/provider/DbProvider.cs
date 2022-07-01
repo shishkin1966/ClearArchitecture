@@ -78,7 +78,7 @@ namespace ClearArchitecture.SL
             {
                 var cnn = _secretary.GetValue(databaseName);
                 cnn.Close();
-                Console.WriteLine(DateTime.Now.ToString("G") + ": Соединение с БД " + databaseName+" разорвано");
+                Console.WriteLine(DateTime.Now.ToString("G") + ": Соединение " + databaseName + " с БД разорвано");
                 _secretary.Remove(databaseName);
             }
         }
@@ -90,7 +90,7 @@ namespace ClearArchitecture.SL
                 this.Disconnect(databaseName);
             }
             _secretary.Clear();
-            Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Очистка списка Connections");
+            Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Очистка списка DB Connections");
 
             base.Stop();
         }

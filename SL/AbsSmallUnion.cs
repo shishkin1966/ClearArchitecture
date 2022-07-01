@@ -176,13 +176,6 @@ namespace ClearArchitecture.SL
             }
         }
 
-        public override void OnUnRegister()
-        {
-            UnRegisterSubscribers();
-
-            base.OnUnRegister();
-        }
-
         public virtual IProviderSubscriber GetUnBusySubscriber()
         {
             foreach (IProviderSubscriber subscriber in GetSubscribers())
@@ -212,6 +205,14 @@ namespace ClearArchitecture.SL
                 UnRegisterSubscriber(subscriber);
             }
             _secretary.Clear();
+            Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Очистка списка зарегистрированных в "+GetName());
+        }
+
+        public override void Stop()
+        {
+            UnRegisterSubscribers();
+
+            base.Stop();
         }
     }
 }

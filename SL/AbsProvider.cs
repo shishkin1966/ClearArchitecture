@@ -28,7 +28,6 @@ namespace ClearArchitecture.SL
 
         public virtual void Stop()
         {
-            OnUnRegister();
             Console.WriteLine(DateTime.Now.ToString("G") + ": Stop provider " + GetName());
         }
     }

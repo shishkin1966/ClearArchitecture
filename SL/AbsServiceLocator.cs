@@ -105,6 +105,7 @@ namespace ClearArchitecture.SL
                 if (provider != null && !provider.IsPersistent())
                 {
                     _secretary.Remove(name);
+                    provider.OnUnRegister();
                 }
             }
         }
@@ -169,6 +170,7 @@ namespace ClearArchitecture.SL
             // удаляем провайдеры без подписчиков
             foreach (IProvider provider in stopProviders)
             {
+                provider.Stop();
                 UnRegisterProvider(provider.GetName());
             }
         }
