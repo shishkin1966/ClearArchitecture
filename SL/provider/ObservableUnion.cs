@@ -62,6 +62,7 @@ namespace ClearArchitecture.SL
                 if ( observable == _secretary.GetValue(observable.GetName()))
                 {
                     _secretary.Remove(observable.GetName());
+                    Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Отменена регистрация Observable " + observable.GetName());
                     return true;
                 }
             }
@@ -108,21 +109,16 @@ namespace ClearArchitecture.SL
             return true;
         }
 
-        public override void OnUnRegister()
-        {
-            foreach (IObservable observable in GetObservables())
-            {
-                observable.Stop();
-            }
-            base.OnUnRegister();
-        }
-
         public override void Stop()
         {
             foreach (IObservable observable in GetObservables())
             {
                 observable.Stop();
+                UnRegisterObservable(observable);
             }
+            _secretary.Clear();
+            Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Очистка списка Observable");
+
             base.Stop();
         }
     }

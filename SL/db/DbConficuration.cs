@@ -8,7 +8,7 @@
         {
             _name = name;
 
-            ConnectionString = "Data Source = OSHISHKINPC; Initial Catalog = StackOverflow2010; Integrated Security = True";
+            ConnectionString = "Data Source = OSHISHKINPC; Initial Catalog = StackOverflow2010; Integrated Security = True; MultipleActiveResultSets = True";
         }
 
         public string ConnectionString { get; set; }

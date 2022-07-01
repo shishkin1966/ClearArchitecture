@@ -30,6 +30,7 @@ namespace ClearArchitecture.SL
                 request.SetCanceled();
             }
             _requests.Clear();
+            Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Очистка списка Requests");
         }
 
         public void CancelRequests(string sender)

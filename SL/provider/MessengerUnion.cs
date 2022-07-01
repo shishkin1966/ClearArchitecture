@@ -249,6 +249,7 @@ namespace ClearArchitecture.SL
         {
             _messages.Clear();
             _messagingList.Clear();
+            Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Очистка списка сообщений и списков рассылки");
 
             base.Stop();
         }

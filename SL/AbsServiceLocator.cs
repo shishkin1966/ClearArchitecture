@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ClearArchitecture.SL
 {
@@ -27,9 +28,15 @@ namespace ClearArchitecture.SL
             {
                 if (!provider.IsPersistent()) 
                 {
+                    provider.Stop();
                     UnRegisterProvider(provider.GetName());
                 }
+                if  (_secretary.Size() == 0)
+                {
+                    Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Очистка списка Providers");
+                }
             }
+
         }
 
         public virtual bool ExistsProvider(string name)
@@ -97,7 +104,6 @@ namespace ClearArchitecture.SL
                 IProvider provider = _secretary.GetValue(name);
                 if (provider != null && !provider.IsPersistent())
                 {
-                    provider.Stop();
                     _secretary.Remove(name);
                 }
             }

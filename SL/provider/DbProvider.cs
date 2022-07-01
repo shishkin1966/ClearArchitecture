@@ -90,6 +90,7 @@ namespace ClearArchitecture.SL
                 this.Disconnect(databaseName);
             }
             _secretary.Clear();
+            Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Очистка списка Connections");
 
             base.Stop();
         }
