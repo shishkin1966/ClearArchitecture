@@ -37,12 +37,14 @@ namespace ClearArchitecture.SL
         {
             if (string.IsNullOrEmpty(sender)) return;
 
+            Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Cancel requests " + sender);
             foreach (IRequest request in _requests.Values())
             {
                 if (request.GetSender() == sender)
                 {
                     request.SetCanceled();
                     _requests.Remove(request.GetName());
+                    Console.WriteLine(DateTime.Now.ToString("G") + ": Cancel request " + request.GetName());
                 }
             }
         }

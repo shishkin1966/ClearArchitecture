@@ -153,6 +153,7 @@ namespace ClearArchitecture.SL
             if (_secretary.ContainsKey(subscriber.GetName()))
             {
                 _secretary.Remove(subscriber.GetName());
+                OnUnRegisterSubscriber(subscriber);
                 subscriber.RemoveProvider(this.GetName());
             }
 
@@ -213,6 +214,10 @@ namespace ClearArchitecture.SL
             UnRegisterSubscribers();
 
             base.Stop();
+        }
+
+        public virtual void OnUnRegisterSubscriber(IProviderSubscriber subscriber)
+        {
         }
     }
 }

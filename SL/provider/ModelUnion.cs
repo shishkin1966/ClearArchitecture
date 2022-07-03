@@ -54,5 +54,12 @@ namespace ClearArchitecture.SL
             }
             return default;
         }
+
+        public override void OnUnRegisterSubscriber(IProviderSubscriber subscriber)
+        {
+            base.OnUnRegisterSubscriber(subscriber);
+
+            GC.Collect();
+        }
     }
 }

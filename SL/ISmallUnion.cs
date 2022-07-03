@@ -97,6 +97,13 @@ namespace ClearArchitecture.SL
         void OnAddSubscriber(IProviderSubscriber subscriber);
 
         /*
+        * Событие - удаоен подписчик
+        *
+        * @param subscriber подписчик
+        */
+        void OnUnRegisterSubscriber(IProviderSubscriber subscriber);
+
+        /*
         * Проверить регистрацию подписчика
         *
         * @param subscriber подписчик
