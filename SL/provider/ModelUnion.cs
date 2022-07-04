@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime;
 
 namespace ClearArchitecture.SL
 {
@@ -59,6 +60,7 @@ namespace ClearArchitecture.SL
         {
             base.OnUnRegisterSubscriber(subscriber);
 
+            GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
             GC.Collect();
         }
     }

@@ -206,7 +206,9 @@ namespace ClearArchitecture.SL
                 UnRegisterSubscriber(subscriber);
             }
             _secretary.Clear();
+#if DEBUG
             Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Очистка списка зарегистрированных в "+GetName());
+#endif
         }
 
         public override void Stop()

@@ -18,17 +18,23 @@ namespace ClearArchitecture.SL
 
         public virtual void OnRegister()
         {
-            Console.WriteLine(DateTime.Now.ToString("G") + ": OnRegister provider " + GetName());
+            #if DEBUG
+                Console.WriteLine(DateTime.Now.ToString("G") + ": OnRegister provider " + GetName());
+            #endif            
         }
 
         public virtual void OnUnRegister()
         {
-            Console.WriteLine(DateTime.Now.ToString("G") + ": OnUnRegister provider " + GetName());
+            #if DEBUG
+                Console.WriteLine(DateTime.Now.ToString("G") + ": OnUnRegister provider " + GetName());
+            #endif            
         }
 
         public virtual void Stop()
         {
-            Console.WriteLine(DateTime.Now.ToString("G") + ": Stop provider " + GetName());
+            #if DEBUG
+                Console.WriteLine(DateTime.Now.ToString("G") + ": Stop provider " + GetName());
+            #endif            
         }
     }
 }

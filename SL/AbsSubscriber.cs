@@ -13,6 +13,13 @@ namespace ClearArchitecture.SL
         {
         }
 
+        ~AbsSubscriber()
+        {
+#if DEBUG
+            Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Destroy "+ GetName());
+#endif
+        }
+
         protected AbsSubscriber(string name) : base()
         {
             _name = name;

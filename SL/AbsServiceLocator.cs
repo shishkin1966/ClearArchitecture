@@ -33,7 +33,9 @@ namespace ClearArchitecture.SL
                 }
                 if  (_secretary.Size() == 0)
                 {
-                    Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Очистка списка Providers");
+                        #if DEBUG
+                            Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Очистка списка Providers");
+                        #endif
                 }
             }
 

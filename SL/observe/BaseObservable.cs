@@ -17,8 +17,9 @@ namespace ClearArchitecture.SL
             if (subscriber == null) return;
 
             _secretary.Put(subscriber.GetName(), subscriber);
+#if DEBUG
             Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Подключен observer " + subscriber.GetName() + " от observable " + GetName());
-
+#endif
             OnRegisterObserver(subscriber);
 
             if (_secretary.Size() == 1)
@@ -61,7 +62,9 @@ namespace ClearArchitecture.SL
 
                     OnUnRegisterObserver(subscriber);
 
+#if DEBUG
                     Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Отключен observer " + subscriber.GetName()+ " от observable " + GetName());
+#endif
                 }
 
                 if (_secretary.IsEmpty())
@@ -88,7 +91,9 @@ namespace ClearArchitecture.SL
                 subscriber.OnStopObservable(GetName());
             }
             _secretary.Clear();
+#if DEBUG
             Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Stop observable " + GetName());
+#endif
         }
 
         public virtual void OnRegisterObserver(IObservableSubscriber subscriber)

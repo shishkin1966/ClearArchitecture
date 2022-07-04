@@ -32,12 +32,16 @@ namespace ClearArchitecture.SL
 
         public virtual void OnSetProvider(string provider)
         {
-            Console.WriteLine(DateTime.Now.ToString("G") + ": Подключен к провайдеру " + provider + " подписчик "+ GetName());
+            #if DEBUG
+                Console.WriteLine(DateTime.Now.ToString("G") + ": Подключен к провайдеру " + provider + " подписчик "+ GetName());
+            #endif
         }
 
         public virtual void OnRemoveProvider(string provider)
         {
-            Console.WriteLine(DateTime.Now.ToString("G") + ": Отключен от провайдера " + provider + " подписчик " + GetName());
+            #if DEBUG
+                Console.WriteLine(DateTime.Now.ToString("G") + ": Отключен от провайдера " + provider + " подписчик " + GetName());
+            #endif
         }
     }
 }

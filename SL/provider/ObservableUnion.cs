@@ -48,7 +48,9 @@ namespace ClearArchitecture.SL
             if (observable == null) return true;
 
             _secretary.Put(observable.GetName(), observable);
+#if DEBUG
             Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Зарегистрирован Observable "+ observable.GetName() );
+#endif
 
             return true;
         }
@@ -62,7 +64,9 @@ namespace ClearArchitecture.SL
                 if ( observable == _secretary.GetValue(observable.GetName()))
                 {
                     _secretary.Remove(observable.GetName());
+#if DEBUG
                     Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Отменена регистрация Observable " + observable.GetName());
+#endif
                     return true;
                 }
             }
@@ -117,7 +121,9 @@ namespace ClearArchitecture.SL
                 UnRegisterObservable(observable);
             }
             _secretary.Clear();
+#if DEBUG
             Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Очистка списка Observable");
+#endif
 
             base.Stop();
         }

@@ -30,21 +30,27 @@ namespace ClearArchitecture.SL
                 request.SetCanceled();
             }
             _requests.Clear();
+#if DEBUG
             Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Очистка списка Requests");
+#endif
         }
 
         public void CancelRequests(string sender)
         {
             if (string.IsNullOrEmpty(sender)) return;
 
+#if DEBUG
             Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Cancel requests " + sender);
+#endif
             foreach (IRequest request in _requests.Values())
             {
                 if (request.GetSender() == sender)
                 {
                     request.SetCanceled();
                     _requests.Remove(request.GetName());
+#if DEBUG
                     Console.WriteLine(DateTime.Now.ToString("G") + ": Cancel request " + request.GetName());
+#endif
                 }
             }
         }
@@ -60,7 +66,9 @@ namespace ClearArchitecture.SL
                 if (request.GetSender() == sender && request.GetName() == requestName)
                 {
                     request.SetCanceled();
+#if DEBUG
                     Console.WriteLine(DateTime.Now.ToString("G") + ": Cancel request " + request.GetName());
+#endif
 
                     _requests.Remove(request.GetName());
                 }
