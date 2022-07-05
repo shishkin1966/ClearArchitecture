@@ -138,6 +138,8 @@ namespace ClearArchitecture.SL
         {
             if (request == null) return;
 
+            request.SetStartTime(DateTime.Now);
+
             ThreadPool.QueueUserWorkItem(request.Execute, request);
         }
 
