@@ -49,6 +49,11 @@ namespace ClearArchitecture.SL
 
         public virtual void Stop()
         {
+            foreach (var subscriber in from IObserver subscriber in _secretary.Values()
+                                       select subscriber)
+            {
+                subscriber.OnStop();
+            }
             _secretary.Clear();
 #if DEBUG
             Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Stop observable " + GetName());

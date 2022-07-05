@@ -8,5 +8,10 @@
         * @param obj значение слушаемого объекта
         */
         void OnChangeObservable(object obj);
+
+        /**
+        * Событие - слушаемый объект остановлен
+        */
+        void OnStop();
     }
 }
