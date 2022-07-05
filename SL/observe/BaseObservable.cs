@@ -26,18 +26,18 @@ namespace ClearArchitecture.SL
             {
                 OnRegisterFirstObserver();
             }
-
         }
 
         public virtual IObservableSubscriber GetObserver(string name)
         {
+            if (string.IsNullOrEmpty(name)) return default;
+
             return _secretary.GetValue(name);
         }
 
         public virtual List<IObservableSubscriber> GetObservers()
         {
             return _secretary.Values();
-
         }
 
         public virtual void OnChangeObservable(object obj)

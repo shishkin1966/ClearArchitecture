@@ -9,7 +9,7 @@ namespace ClearArchitecture.SL
     {
         private readonly ISecretary<IProviderSubscriber> _secretary = CreateSecretary();
 
-        private IObservable _observable;
+        private readonly SimpleObservable _observable = new SimpleObservable();
 
         public static ISecretary<IProviderSubscriber> CreateSecretary()
         {
@@ -112,6 +112,10 @@ namespace ClearArchitecture.SL
             // Method intentionally left empty.
         }
         public virtual void OnUnRegisterLastSubscriber()
+        {
+            // Method intentionally left empty.
+        }
+        public virtual void OnUnRegisterSubscriber(IProviderSubscriber subscriber)
         {
             // Method intentionally left empty.
         }
@@ -226,27 +230,15 @@ namespace ClearArchitecture.SL
         public override void Stop()
         {
             UnRegisterSubscribers();
-            if (_observable != null) {
-                _observable.Stop();
-            }
+            _observable.Stop();
 
             base.Stop();
         }
 
-        public virtual void OnUnRegisterSubscriber(IProviderSubscriber subscriber)
-        {
-        }
 
-        public void SetObservable(IObservable observable)
+        public virtual void AddObserver(IObserver observer)
         {
-            if (observable == null) return;
-
-            _observable = observable;
-        }
-
-        public IObservable GetObservable()
-        {
-            return _observable;
+            _observable.AddObserver(observer);
         }
     }
 }
