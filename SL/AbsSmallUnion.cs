@@ -226,7 +226,9 @@ namespace ClearArchitecture.SL
         public override void Stop()
         {
             UnRegisterSubscribers();
-            _observable.Stop();
+            if (_observable != null) {
+                _observable.Stop();
+            }
 
             base.Stop();
         }

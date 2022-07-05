@@ -172,8 +172,11 @@ namespace ClearArchitecture.SL
             // удаляем провайдеры без подписчиков
             foreach (IProvider provider in stopProviders)
             {
-                provider.Stop();
-                UnRegisterProvider(provider.GetName());
+                if (provider != null)
+                {
+                    provider.Stop();
+                    UnRegisterProvider(provider.GetName());
+                }
             }
         }
 
