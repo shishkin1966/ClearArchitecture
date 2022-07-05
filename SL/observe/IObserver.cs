@@ -12,6 +12,6 @@
         /**
         * Событие - слушаемый объект остановлен
         */
-        void OnStop();
+        void OnStopObservable();
     }
 }

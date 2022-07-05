@@ -52,7 +52,7 @@ namespace ClearArchitecture.SL
             foreach (var subscriber in from IObserver subscriber in _secretary.Values()
                                        select subscriber)
             {
-                subscriber.OnStop();
+                subscriber.OnStopObservable();
             }
             _secretary.Clear();
 #if DEBUG
