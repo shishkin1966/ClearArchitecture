@@ -125,5 +125,8 @@ namespace ClearArchitecture.SL
         */
         List<IProviderSubscriber> GetUnBusySubscribers();
 
+        void SetObservable(IObservable observable);
+
+        IObservable GetObservable();
     }
 }

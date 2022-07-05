@@ -9,6 +9,8 @@ namespace ClearArchitecture.SL
     {
         private readonly ISecretary<IProviderSubscriber> _secretary = CreateSecretary();
 
+        private IObservable _observable;
+
         public static ISecretary<IProviderSubscriber> CreateSecretary()
         {
             return new Secretary<IProviderSubscriber>();
@@ -131,6 +133,11 @@ namespace ClearArchitecture.SL
             _secretary.Put(subscriber.GetName(), subscriber);
             subscriber.SetProvider(this.GetName());
 
+            if (_observable != null)
+            {
+                _observable.OnChangeObservable(subscriber);
+            }
+
             if (cnt == 0 && _secretary.Size() == 1)
             {
                 OnRegisterFirstSubscriber();
@@ -155,6 +162,11 @@ namespace ClearArchitecture.SL
                 _secretary.Remove(subscriber.GetName());
                 OnUnRegisterSubscriber(subscriber);
                 subscriber.RemoveProvider(this.GetName());
+
+                if (_observable != null)
+                {
+                    _observable.OnChangeObservable(subscriber);
+                }
             }
 
             if (cnt == 1 && _secretary.Size() == 0)
@@ -214,12 +226,25 @@ namespace ClearArchitecture.SL
         public override void Stop()
         {
             UnRegisterSubscribers();
+            _observable.Stop();
 
             base.Stop();
         }
 
         public virtual void OnUnRegisterSubscriber(IProviderSubscriber subscriber)
         {
+        }
+
+        public void SetObservable(IObservable observable)
+        {
+            if (observable == null) return;
+
+            _observable = observable;
+        }
+
+        public IObservable GetObservable()
+        {
+            return _observable;
         }
     }
 }
