@@ -8,7 +8,7 @@ namespace ClearArchitecture.SL
     {
         public const string NAME = "ObservableUnion";
 
-        private readonly Secretary<IObservable> _secretary = new Secretary<IObservable>();
+        private readonly Secretary<ISubscriberObservable> _secretary = new Secretary<ISubscriberObservable>();
 
         public ObservableUnion(string name) : base(name)
         {
@@ -22,12 +22,12 @@ namespace ClearArchitecture.SL
             { return 1; }
         }
 
-        public IObservable GetObservable(string name)
+        public ISubscriberObservable GetObservable(string name)
         {
             return _secretary.GetValue(name);
         }
 
-        public List<IObservable> GetObservables()
+        public List<ISubscriberObservable> GetObservables()
         {
             return _secretary.Values();
         }
@@ -36,14 +36,14 @@ namespace ClearArchitecture.SL
         {
             if (string.IsNullOrEmpty(name)) return;
 
-            IObservable observable = GetObservable(name);
+            ISubscriberObservable observable = GetObservable(name);
             if (observable != null)
             {
                 observable.OnChangeObservable(obj);
             }
         }
 
-        public bool RegisterObservable(IObservable observable)
+        public bool RegisterObservable(ISubscriberObservable observable)
         {
             if (observable == null) return true;
 
@@ -55,7 +55,7 @@ namespace ClearArchitecture.SL
             return true;
         }
 
-        public bool UnRegisterObservable(IObservable observable)
+        public bool UnRegisterObservable(ISubscriberObservable observable)
         {
             if (observable == null) return true;
 
@@ -84,7 +84,7 @@ namespace ClearArchitecture.SL
             var s = subscriber as IObservableSubscriber;
 
             List<string> list = s.GetObservable();
-            foreach (var observable in from IObservable observable in GetObservables()
+            foreach (var observable in from ISubscriberObservable observable in GetObservables()
                                        where list.Contains(observable.GetName())
                                        select observable)
             {
@@ -103,7 +103,7 @@ namespace ClearArchitecture.SL
             if (!base.RegisterSubscriber(subscriber)) return false;
 
             List<string> list = s.GetObservable();
-            foreach (IObservable observable in GetObservables()) 
+            foreach (ISubscriberObservable observable in GetObservables()) 
             {
                 string name = observable.GetName();
                 if (list.Contains(name)) {
@@ -115,7 +115,7 @@ namespace ClearArchitecture.SL
 
         public override void Stop()
         {
-            foreach (IObservable observable in GetObservables())
+            foreach (ISubscriberObservable observable in GetObservables())
             {
                 observable.Stop();
                 UnRegisterObservable(observable);

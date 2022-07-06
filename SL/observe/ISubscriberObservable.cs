@@ -2,7 +2,7 @@
 
 namespace ClearArchitecture.SL
 {
-    public interface IObservable : ISubscriber
+    public interface ISubscriberObservable : ISubscriber
     {
         /**
         * Добавить слушателя к слушаемому объекту

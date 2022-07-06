@@ -9,21 +9,21 @@ namespace ClearArchitecture.SL
         *
         * @return список слушаемых(IObservable) объектов
         */
-        List<IObservable> GetObservables();
+        List<ISubscriberObservable> GetObservables();
 
         /**
         * Зарегестрировать слушаемый объект
         *
         * @param observable слушаемый объект
         */
-        bool RegisterObservable(IObservable observable);
+        bool RegisterObservable(ISubscriberObservable observable);
 
         /**
         * Отменить регистрацию слушаемего объекта
         *
         * @param observable слушаемый объект
         */
-        bool UnRegisterObservable(IObservable observable);
+        bool UnRegisterObservable(ISubscriberObservable observable);
 
         /**
         * Событие - изменился слушаемый объект
@@ -39,7 +39,7 @@ namespace ClearArchitecture.SL
         * @param name имя слушаемого объекта
         * @return слушаемый объект
         */
-        IObservable GetObservable(string name);
+        ISubscriberObservable GetObservable(string name);
 
     }
 }

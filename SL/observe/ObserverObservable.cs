@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace ClearArchitecture.SL
 {
-    public class SimpleObservable : ISimpleObservable
+    public class ObserverObservable : IObserverObservable
     {
         private readonly Secretary<IObserver> _secretary = new Secretary<IObserver>();
 
-        public SimpleObservable()
+        public ObserverObservable()
         {
         }
 

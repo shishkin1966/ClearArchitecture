@@ -9,7 +9,7 @@ namespace ClearArchitecture.SL
     {
         private readonly ISecretary<IProviderSubscriber> _secretary = CreateSecretary();
 
-        private readonly SimpleObservable _observable = new SimpleObservable();
+        private readonly ObserverObservable _observable = new ObserverObservable();
 
         public static ISecretary<IProviderSubscriber> CreateSecretary()
         {
