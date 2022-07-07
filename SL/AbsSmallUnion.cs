@@ -9,7 +9,7 @@ namespace ClearArchitecture.SL
     {
         private readonly ISecretary<IProviderSubscriber> _secretary = CreateSecretary();
 
-        private readonly ObserverObservable _observable = new ObserverObservable();
+        private readonly ObserverObservable _observable;
 
         public static ISecretary<IProviderSubscriber> CreateSecretary()
         {
@@ -18,6 +18,7 @@ namespace ClearArchitecture.SL
 
         protected AbsSmallUnion(string name) : base(name)
         {
+            _observable = new ObserverObservable(GetName() + "Observable");
         }
 
         public virtual bool ContainsSubscriber(IProviderSubscriber subscriber)

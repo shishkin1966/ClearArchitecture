@@ -7,9 +7,11 @@ namespace ClearArchitecture.SL
     public class ObserverObservable : IObserverObservable
     {
         private readonly Secretary<IObserver> _secretary = new Secretary<IObserver>();
+        private readonly string _name;
 
-        public ObserverObservable()
+        public ObserverObservable(string name)  
         {
+            _name = name;
         }
 
         public virtual IObserver GetObserver(string name)
@@ -70,5 +72,9 @@ namespace ClearArchitecture.SL
 #endif
         }
 
+        public string GetName()
+        {
+            return _name;
+        }
     }
 }
