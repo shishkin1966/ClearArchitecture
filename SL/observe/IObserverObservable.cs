@@ -2,13 +2,14 @@
 
 namespace ClearArchitecture.SL
 {
-    public interface IObserverObservable :  INamed
+    public interface IObserverObservable : INamed
     {
         /**
         * Добавить слушателя к слушаемому объекту
         *
         * @param subscriber слушатель
         */
+
         void AddObserver(IObserver subscriber);
 
         /**
@@ -16,14 +17,15 @@ namespace ClearArchitecture.SL
         *
         * @param subscriber слушатель
         */
-        void RemoveObserver(IObserver subscriber);
 
+        void RemoveObserver(IObserver subscriber);
 
         /**
         * Событие - в слушаемом объекте произошли изменения
         *
         * @param obj объект изменения
         */
+
         void OnChangeObservable(object obj);
 
         /**
@@ -31,6 +33,7 @@ namespace ClearArchitecture.SL
         *
         * @return список слушателей
         */
+
         List<IObserver> GetObservers();
 
         /**
@@ -39,12 +42,13 @@ namespace ClearArchitecture.SL
         * @param name имя слушателя
         * @return слушатель
         */
+
         IObserver GetObserver(string name);
 
         /**
-        * Остановить 
+        * Остановить
         */
-        void Stop();
 
+        void Stop();
     }
 }
