@@ -5,6 +5,7 @@ namespace ClearArchitecture.SL
     /*
     * Интерфейс малого объединения подписчиков
     */
+
     public interface ISmallUnion : IProvider
     {
         /*
@@ -12,6 +13,7 @@ namespace ClearArchitecture.SL
         *
         * @param subscriber подписчик
         */
+
         bool RegisterSubscriber(IProviderSubscriber subscriber);
 
         /*
@@ -20,6 +22,7 @@ namespace ClearArchitecture.SL
         * @param subscriber подписчик
         * @return true - провайдер должен быть остановлен и выгружен
         */
+
         void UnRegisterSubscriber(IProviderSubscriber subscriber);
 
         /*
@@ -28,11 +31,13 @@ namespace ClearArchitecture.SL
         * @param name имя подписчика
         * @return true - провайдер должен быть остановлен и выгружен
         */
+
         void UnRegisterSubscriber(string name);
 
         /*
         * Отключить всех подписчиков
         */
+
         void UnRegisterSubscribers();
 
         /*
@@ -40,6 +45,7 @@ namespace ClearArchitecture.SL
         *
         * @return список подписчиков
         */
+
         List<IProviderSubscriber> GetSubscribers();
 
         /*
@@ -47,6 +53,7 @@ namespace ClearArchitecture.SL
         *
         * @return проверенный подписчик
         */
+
         IProviderSubscriber GetValidSubscriber();
 
         /*
@@ -54,6 +61,7 @@ namespace ClearArchitecture.SL
         *
         * @return список проверенных подписчиков
         */
+
         List<IProviderSubscriber> GetValidSubscribers();
 
         /*
@@ -61,6 +69,7 @@ namespace ClearArchitecture.SL
         *
         * @return true - подписчики есть
         */
+
         bool HasSubscribers();
 
         /*
@@ -69,6 +78,7 @@ namespace ClearArchitecture.SL
         * @param name имя подписчика
         * @return true - подписчик есть
         */
+
         bool HasSubscriber(string name);
 
         /*
@@ -77,16 +87,19 @@ namespace ClearArchitecture.SL
         * @param name имя подписчика
         * @return подписчик
         */
+
         IProviderSubscriber GetSubscriber(string name);
 
         /*
         * Событие - появился первый подписчик
         */
+
         void OnRegisterFirstSubscriber();
 
         /*
         * Событие - отписан последний подписчик
         */
+
         void OnUnRegisterLastSubscriber();
 
         /*
@@ -94,6 +107,7 @@ namespace ClearArchitecture.SL
         *
         * @param subscriber подписчик
         */
+
         void OnAddSubscriber(IProviderSubscriber subscriber);
 
         /*
@@ -101,6 +115,7 @@ namespace ClearArchitecture.SL
         *
         * @param subscriber подписчик
         */
+
         void OnUnRegisterSubscriber(IProviderSubscriber subscriber);
 
         /*
@@ -109,6 +124,7 @@ namespace ClearArchitecture.SL
         * @param subscriber подписчик
         * @return true подписчик зарегистрирован
         */
+
         bool ContainsSubscriber(IProviderSubscriber subscriber);
 
         /*
@@ -116,6 +132,7 @@ namespace ClearArchitecture.SL
         *
         * @return свободный подписчик
         */
+
         IProviderSubscriber GetUnBusySubscriber();
 
         /*
@@ -123,11 +140,7 @@ namespace ClearArchitecture.SL
         *
         * @return список свободных подписчиков
         */
-        List<IProviderSubscriber> GetUnBusySubscribers();
 
-        /*
-        * Добавить слушателя провайдера
-        */
-        void AddObserver(IObserver observer);
+        List<IProviderSubscriber> GetUnBusySubscribers();
     }
 }

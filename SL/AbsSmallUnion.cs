@@ -1,15 +1,12 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace ClearArchitecture.SL
 {
-    public abstract class AbsSmallUnion : AbsProvider, ISmallUnion 
+    public abstract class AbsSmallUnion : AbsProvider, ISmallUnion
     {
         private readonly ISecretary<IProviderSubscriber> _secretary = CreateSecretary();
-
-        private readonly ObserverObservable _observable;
 
         public static ISecretary<IProviderSubscriber> CreateSecretary()
         {
@@ -18,7 +15,6 @@ namespace ClearArchitecture.SL
 
         protected AbsSmallUnion(string name) : base(name)
         {
-            _observable = new ObserverObservable(GetName() + "Observable");
         }
 
         public virtual bool ContainsSubscriber(IProviderSubscriber subscriber)
@@ -47,7 +43,7 @@ namespace ClearArchitecture.SL
             }
             return subscribers;
         }
-        
+
         public virtual IProviderSubscriber GetSubscriber(string name)
         {
             if (!_secretary.ContainsKey(name))
@@ -73,7 +69,6 @@ namespace ClearArchitecture.SL
                 {
                     return subscriber;
                 }
-
             }
             return default;
         }
@@ -100,7 +95,6 @@ namespace ClearArchitecture.SL
         public virtual bool HasSubscribers()
         {
             return !_secretary.IsEmpty();
-
         }
 
         public virtual void OnAddSubscriber(IProviderSubscriber subscriber)
@@ -112,16 +106,18 @@ namespace ClearArchitecture.SL
         {
             // Method intentionally left empty.
         }
+
         public virtual void OnUnRegisterLastSubscriber()
         {
             // Method intentionally left empty.
         }
+
         public virtual void OnUnRegisterSubscriber(IProviderSubscriber subscriber)
         {
             // Method intentionally left empty.
         }
 
-        public virtual bool RegisterSubscriber(IProviderSubscriber subscriber) 
+        public virtual bool RegisterSubscriber(IProviderSubscriber subscriber)
         {
             if (subscriber == null)
             {
@@ -138,10 +134,7 @@ namespace ClearArchitecture.SL
             _secretary.Put(subscriber.GetName(), subscriber);
             subscriber.SetProvider(this.GetName());
 
-            if (_observable != null)
-            {
-                _observable.OnChangeObservable(subscriber);
-            }
+            GetObservable().OnChangeObservable(subscriber);
 
             if (cnt == 0 && _secretary.Size() == 1)
             {
@@ -168,10 +161,7 @@ namespace ClearArchitecture.SL
                 OnUnRegisterSubscriber(subscriber);
                 subscriber.RemoveProvider(this.GetName());
 
-                if (_observable != null)
-                {
-                    _observable.OnChangeObservable(subscriber);
-                }
+                GetObservable().OnChangeObservable(subscriber);
             }
 
             if (cnt == 1 && _secretary.Size() == 0)
@@ -202,7 +192,6 @@ namespace ClearArchitecture.SL
                 {
                     return subscriber;
                 }
-
             }
             return default;
         }
@@ -231,15 +220,8 @@ namespace ClearArchitecture.SL
         public override void Stop()
         {
             UnRegisterSubscribers();
-            _observable.Stop();
 
             base.Stop();
-        }
-
-
-        public virtual void AddObserver(IObserver observer)
-        {
-            _observable.AddObserver(observer);
         }
     }
 }
